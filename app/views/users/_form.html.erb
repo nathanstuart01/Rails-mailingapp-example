@@ -1,0 +1,49 @@
+<%= form_for user do |f| %>
+  <% if user.errors.any? %>
+    <div id="errors">
+      <h2><%= pluralize(user.errors.count, "error") %> </h2>
+      <ul>
+        <%= user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <div>
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, required: true %>
+    </div>
+    <div>
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
+    <div>
+      <%= f.label :age %>
+      <%= f.number_field :age, required: true, min: 18, max: 55 %>
+    </div>
+
+    <div>
+      <%= f.label :gender %>
+      <%= f.select :gender, ['Male', 'Female', 'Other'] %>
+    </div>
+    <h3> User Address </h3>
+    <ul>
+      <%= f.fields_for :address do |address_form| %>
+        <li>
+          <%= address_form.label :street %>
+          <%= address_form.text_field :street %>
+
+          <%= address_form.label :city %>
+          <%= address_form.text_field :city %>
+
+          <%= address_form.label :state %>
+          <%= address_form.text_field :state %>
+
+          <%= address_form.label :zip %>
+          <%= address_form.text_field :zip %>
+        </li>
+      <% end %>
+    </ul>
+    <%= f.submit nil, class: 'btn' %>
+    <%= link_to 'Back', users_path, class: 'btn grey' %>
+<% end %>
